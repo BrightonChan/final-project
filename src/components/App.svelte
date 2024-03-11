@@ -1057,11 +1057,6 @@ function update(selectedGroup) {
 </div>
 <select id="selectButton"></select>
 <div id="linechart"></div> 
-  <p>To compare Victor Wembenyama's performance with other players, our first step is to analyze his performance against first-round draft picks. We aim to implement a checkbox feature on the right side so users can select the data they want to compare for all the rookies. Currently, we have only completed the stacked bar plot for steals and blocks. Additionally, hovering over the bars will display the respective player's stats. While we're still working on the selection feature, we're also gathering the data we need to compare with Wembenyama to predict his future performances.
-    
-  <p>One of the most challenging aspects has been deciding which plots to use to present various NBA data. We intend to use a map to illustrate how Wembanyama performed against teams from different cities, allowing us to analyze his performance in different regions of the states. Furthermore, we plan to create a shooting map for Wembenyama to highlight his favorite offensive areas. However, collecting shooting data has proven difficult as there isn't an existing data frame we can use.</p>
-    
-  <p>Lastly, fetching the performance statistics of all first-round draft picks or the rookie stats of all Hall of Fame players has been challenging. This task requires combining multiple data frames.</p>
     
   
 </main>
