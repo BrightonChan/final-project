@@ -1126,11 +1126,9 @@ function update(selectedGroup) {
 </main>
 
 <style>
-    div{
-   background-image: url('wemby2.jpg');
- }
 
 div {
+    background-image: url('wemby2.jpg');
    background:burlywood;
  }
  .input-wrapper{
