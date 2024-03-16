@@ -5,8 +5,9 @@
   //import pkg from 'lodash';
   //const { debounce } = pkg;
   import * as d3 from 'd3';
+  import { fade } from 'svelte/transition';
+  
   let hovered = -1;
-
   let data = '';
 
   onMount(async () => {
@@ -44,9 +45,9 @@
 
 	
 	function drawChart() {
-    var margin = {top: 10, right: 0, bottom: 20, left: 150},
-    width = 500 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    var margin = {top: 10, right: 0, bottom: 75, left: 150},
+    width = 1000 - margin.left - margin.right,
+    height = 600 - margin.top - margin.bottom;
 
     const svg = d3.select('#chart').append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -69,6 +70,13 @@ var x = d3.scaleLinear()
 svg.append("g")
   .attr("transform", "translate(0," + height + ")")  // Move the x-axis to the bottom
   .call(d3.axisBottom(x).tickSizeOuter(0));
+  
+svg.append("text") // Add x-axis label
+    .attr("x", width - 450)
+    .attr("y", height + 50) // Adjust position as needed
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .text("Steals and Blocks");
 
 // Define the y-axis scale
 var y = d3.scaleBand()
@@ -79,6 +87,14 @@ var y = d3.scaleBand()
 // Append the y-axis
 svg.append("g")
   .call(d3.axisLeft(y));
+
+svg.append("text") // Add y-axis label
+    .attr("transform", "rotate(-90)")
+    .attr("x", -250)
+    .attr("y", -150) // Adjust position as needed
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .text("Rookies"); // Label text
 
 // color palette = one color per subgroup
 var color = d3.scaleOrdinal()
@@ -993,33 +1009,83 @@ function update(selectedGroup) {
        // recover the option that has been chosen
        var selectedOption = d3.select(this).property("value")
        // run the updateChart function with this selected option
-       update(selectedOption)
-    
+       update(selectedOption)  
    })
-
-
-
-
-
-
-
-
   }
 
+  function scrollToOffense() {
+    // Get a reference to the target div
+    const targetDiv = document.getElementById('Offense');
+    // Scroll to the target div
+    targetDiv.scrollIntoView({ behavior: 'smooth' });
+  }
 
+  function scrollToDefense() {
+    // Get a reference to the target div
+    const targetDiv = document.getElementById('defense');
+    // Scroll to the target div
+    targetDiv.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function changeImageSize() {
+        var value = document.getElementById("myRange").value;
+        var curryImg = document.getElementById("curry-img");
+        curryImg.style.width = value*2.1 + "px";
+    }
 </script>
 
 <main>
-  <h1>Is All the Hype Around Wembanyama Actually Legit?</h1>
-  <h1>How good Wembanyama's Rookie Season?</h1>
-  <h3>Nba data from october to feb 15</h3>
-  <div id="chart"></div>
-  <div id="container">
-    <img src={'nbacourt.jpg'} alt="Basketball Court">
-    <svg id="overlay"></svg>
+    <div class="page" id="first" >
 
-    {#if showPlayerInfo}
-        <div id="player-info">
+
+    </div>
+     <div class="page2">
+      <p class="topic"><b>Why is Wembanyama so Hyped Up?</b></p>
+      <p class="left_txt">- 2023 First Draft Pick</p>
+      <p class="left_txt">- More than 6 teams tanking for him (losing on purpose)</p>
+      <p class="left_txt">- Listed Height: 7 foot 3</p>
+      <p class="left_txt">- Wingspan: 8 foot</p>
+      <p class="left_txt">- Elected MVP, Best Young Player, Best Defender</p>
+      <p class="left_txt">- Top Scorer and Best Blocker in the French League</p>
+      <p class="left_txt">- One of the most hyped rookies since LeBron James</p>
+    </div>
+    <div transition:fade>
+        <h1>Just How Tall is Wembanyama?</h1>
+        <h2>Compare Your Height with Wemby!!</h2>
+    </div>
+    <div id="ill">
+        <div class="input-wrapper">
+        <label for="height1">How tall are you?</label>
+        <input type="range" min="130" max="240" value="188" class="slider" id="myRange" oninput="rangeValue.innerText = this.value" on:input={changeImageSize}>
+        <div class="value-container">
+            <p id="rangeValue">188</p>
+            <p>cm</p>
+        </div>
+    </div>
+    <div class="image-wrapper">
+        <img src={'wembyimg.jpeg'} alt="Wembanyama" id="wembanyama-img">
+    </div>
+    <div class="image-wrapper">
+        <img src={'curry.png'} alt="Curry" id="curry-img">
+    </div>
+    </div>
+    <h1>Now, Onto why he's one of the best rookies ever!</h1>
+    <h2>Click on me!</h2>
+    <div id="buttons">
+        <button on:click={scrollToOffense}>Offense</button>
+        <button on:click={scrollToDefense}>Defense</button>
+    </div>
+    <h2 id="defense">Defensive Impact</h2>
+    <h3 id="q1">How is Wembanyama's defensive performance compared to other rookies?</h3>
+    <div id="chart"></div>
+    <h2 id="Offense">Offensive Impact</h2>
+    <h3 id="q1">How effective is Wembanyama shooting from the field compared to past rookie of the years?</h3>
+    <h3 id="clicking">(Try to click on the zones !)</h3>
+    <div id="container">
+        <img src={'nbacourt.jpg'} alt="Basketball Court" id="bball">
+        <svg id="overlay"></svg>
+        {#if showPlayerInfo}
+            <div id="player-info">
 
             <!-- Player information -->
             <h2>{selectedPlayer}</h2>
@@ -1034,37 +1100,119 @@ function update(selectedGroup) {
             <video id="videoPlayer" controls></video>
         </div>
     {/if}
-  </div>
-  <div id="tooltip" style="position: absolute; opacity: 1; pointer-events: none; transition: opacity 0.2s;"></div>
+    </div>
+    <div id="tooltip" style="position: absolute; opacity: 1; pointer-events: none; transition: opacity 0.2s;"></div>
 
 <div id="legend">
-    <div id="gradient-legend">
-        <div class="gradient-bar"></div>
-        <div class="percentage-scale">
-            <span>-6%</span>
-            <span>-4%</span>
-            <span>-2%</span>
-            <span>0%</span>
-            <span>+2%</span>
-            <span>+4%</span>
-            <span>+6%</span>
-            <span>NA</span>
-        </div>
+<div id="gradient-legend">
+    <div class="gradient-bar"></div>
+    <div class="percentage-scale">
+        <span>-6%</span>
+        <span>-4%</span>
+        <span>-2%</span>
+        <span>0%</span>
+        <span>+2%</span>
+        <span>+4%</span>
+        <span>+6%</span>
+        <span>NA</span>
     </div>
-    <div class="frequency-scale">
-        <span>Field Goal % of Rookie vs. Rookie of the Year Averages</span>
-    </div>
+</div>
+<div class="frequency-scale">
+    <span>Field Goal % of Rookie vs. Rookie of the Year Averages</span>
+</div>
 </div>
 <select id="selectButton"></select>
 <div id="linechart"></div> 
-    
-  
 </main>
 
 <style>
-    #chart {
-        width: 0%;
+    div{
+   background-image: url('wemby2.jpg');
+ }
+
+div {
+   background:burlywood;
+ }
+ .input-wrapper{
+    padding-left: 30%;
+ }
+    .p{
+   position: relative;
+ }
+  .page{
+   padding-top: 40%;
+   padding-bottom: 30%;
+   padding-right: 40%;
+   padding-left: 40%;
+ }
+ .page::before {
+   width: 600px; /* Set width to cover the entire .page element */
+   height:14%;
+   content: 'Is All the Hype Around Victor Wembanyama Legit?'; /* Text content */
+   position: absolute;
+   top: 70%; /* Adjust vertical positioning as needed */
+   left: 50%; /* Adjust horizontal positioning as needed */
+   transform: translate(-50%, -50%); /* Center the text */
+   text-align: center;
+   text-anchor: middle;
+   display:flex;
+   font-size: 40px;
+   color: #333;
+   font-family: Arial, sans-serif;
+   background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white color layer */
+   }
+ #first{
+   background-image:url('wemby2.jpg');
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   height: 50%;
+   width: 20%;
+ }
+ .page2{
+   padding-right: 40%;
+   background-color: lightgrey;
+ }
+ .topic {
+   width: 1200px;
+   height: 100px;
+   top: 10;
+   left: 50;
+   font-size: 60px;
+   text-align: center;
+   margin-left: 5%;
+   margin-right: 5%;
+ }
+ .left_txt{
+   width: 750px;
+   height: 60px;
+   top: 0;
+   left: 0;
+  
+   font-size: 35px;
+   margin-left: 28%;
+   color: orangered;
+ }
+
+    main {
+    background-color: burlywood;
+    }   
+
+    #q1 {
+        text-align: center;
+        padding: 4px;
     }
+    #chart {
+        width: 80%; /* Set the width of the chart to 80% of its container's width */
+        height: 650px; /* Set the height of the chart to 400 pixels */
+        margin: 0 auto; /* Center the chart horizontally */
+        text-align: center;
+        padding: 20px;
+    }
+    .value-container {
+            display: flex;
+            align-items: baseline;
+        }
     #container {
         animation: fadeIn 1s ease-out;
         position: relative;
@@ -1073,6 +1221,9 @@ function update(selectedGroup) {
         margin-bottom: 30px;
     }
 
+    #clicking {
+        margin-left: 100px;
+    }
     h1 {
         animation: fadeInright 1s ease-out;
         text-align: center;
@@ -1115,13 +1266,47 @@ function update(selectedGroup) {
         margin-bottom: 0rem; /* Adds space below the line */
     }
 
-    img {
+    .image-wrapper {
+            width: 100%; /* Adjust as needed */
+            /*margin-right: 40px;*/
+            position: relative;
+    }
+
+    #myRange {
+        width: 50%;
+        height: 20px;
+        margin: 10px;
+    }
+    #wembanyama-img {
+        padding-left: 27%;
+            width: 40%;
+            /*margin-right: 40px;*/
+        }
+    
+    #curry-img {
+        padding-left: 27%;
+        width: 28.3%;
+        position: absolute;
+        bottom: 10px;
+        left: 350px; /* Adjust positioning as needed*/
+        z-index: 1; /* Ensure this image appears above the other */
+    }
+
+    .input-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 20px; /* Adjust as needed for spacing between image and input */
+            position: relative;
+        }
+    #bball {
         display: block;
         width: 100%;
         height: auto;
         left: 500px;
         z-index:4;
     }
+
 
     video {
         display: center;
@@ -1231,5 +1416,25 @@ function update(selectedGroup) {
     .frequency-scale span {
         margin-bottom: 5px;
     }
-  
+    
+    .fade-transition {
+    transition: opacity 0.5s;
+    }
+
+    #buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5vh; /* Center vertically */
+    padding-top: 20px;
+    }
+
+    button {
+        padding: 10px 20px; /* Increase padding to make buttons larger */
+        font-size: 18px; /* Increase font size */
+        margin: 10px; /* Add some margin between buttons */
+    }
+    
 </style>
+
+

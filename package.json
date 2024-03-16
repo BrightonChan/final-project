@@ -12,16 +12,18 @@
     "@sveltejs/adapter-static": "^3.0.1",
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
-    "svelte": "^4.2.7",
+    "svelte": "^4.2.12",
     "vite": "^5.0.3"
   },
   "type": "module",
   "dependencies": {
+    "@sveltejs/svelte-scroller": "^2.0.7",
     "d3": "^7.8.5",
     "d3-array": "^3.2.4",
     "d3-format": "^3.1.0",
     "d3-scale": "^4.0.2",
     "d3-shape": "^3.2.0",
-    "layercake": "^8.0.2"
+    "layercake": "^8.0.2",
+    "svelte-scroller": "^1.2.2"
   }
 }
