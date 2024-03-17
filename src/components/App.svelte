@@ -1121,6 +1121,8 @@ function update(selectedGroup) {
     <span>Field Goal % of Rookie vs. Rookie of the Year Averages</span>
 </div>
 </div>
+<h2>Okay, we now know how Wemby is performing compared to previous rookie of the years.</h2>
+<h2> But how is his progress throughout his rookie year? Let's find out! </h2>
 <select id="selectButton"></select>
 <div id="linechart"></div> 
 </main>
@@ -1128,7 +1130,7 @@ function update(selectedGroup) {
 <style>
 
 div {
-    background-image: url('../static/wemby2.jpg');
+    /* background-image: url('../static/wemby2.jpg'); */
    background:burlywood;
  }
  .input-wrapper{
@@ -1201,6 +1203,24 @@ div {
         padding: 4px;
     }
     #chart {
+        width: 80%; /* Set the width of the chart to 80% of its container's width */
+        height: 650px; /* Set the height of the chart to 400 pixels */
+        margin: 0 auto; /* Center the chart horizontally */
+        text-align: center;
+        padding: 20px;
+    }
+
+    #selectButton {
+        font-size: 10px;
+        color: #200f8d;
+        background-color: #fff;
+        border: 5px solid #ccc;
+        padding: 3px;
+        margin-left: 300px;
+        margin-top: 50px;
+    }
+
+    #linechart {
         width: 80%; /* Set the width of the chart to 80% of its container's width */
         height: 650px; /* Set the height of the chart to 400 pixels */
         margin: 0 auto; /* Center the chart horizontally */
@@ -1360,13 +1380,6 @@ div {
         align-items: left;
         margin-top: 20px;
         margin-left: 8%
-    }
-    #selectButton {
-        font-size: 10px;
-        color: #200f8d;
-        background-color: #fff;
-        border: 5px solid #ccc;
-        padding: 3px;
     }
 
 
