@@ -1035,7 +1035,7 @@ function update(selectedGroup) {
 </script>
 
 <main>
-    <div class="page" id="first" >
+    <div class="page" id="first" style="background-image: url('wemby2.jpg')">
 
 
     </div>
