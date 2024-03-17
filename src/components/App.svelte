@@ -1036,8 +1036,7 @@ function update(selectedGroup) {
 
 <main>
     <div class="page" id="first" style="background-image: url('wemby2.jpg')">
-
-
+        <h2 id="name">Presented by Brighton Chan and Lincoln Ma</h2>
     </div>
      <div class="page2">
       <p class="topic"><b>Why is Wembanyama so Hyped Up?</b></p>
@@ -1128,7 +1127,15 @@ function update(selectedGroup) {
 </main>
 
 <style>
-
+#name{
+    position: absolute;
+    color: orange;
+    background-color: grey;
+    transform: translate(66%, 345%);
+    padding: 20px;
+    
+    
+}
 div {
     /* background-image: url('../static/wemby2.jpg'); */
    background:burlywood;
