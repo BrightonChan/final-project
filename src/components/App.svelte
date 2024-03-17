@@ -1162,7 +1162,7 @@ div {
    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white color layer */
    }
  #first{
-   background-image:url('wemby2.jpg');
+   background-image:url('./wemby2.jpg');
    background-size: cover;
    background-position: center;
    background-repeat: no-repeat;
