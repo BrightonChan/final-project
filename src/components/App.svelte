@@ -1128,7 +1128,7 @@ function update(selectedGroup) {
 <style>
 
 div {
-    background-image: url('wemby2.jpg');
+    background-image: url('../static/wemby2.jpg');
    background:burlywood;
  }
  .input-wrapper{
